@@ -6,7 +6,7 @@ RUN GIT_TAG="v1.2.0" && \
     go install github.com/golang/protobuf/protoc-gen-go
 
 FROM alpine:latest
-RUN apk update && apk add protobuf
+RUN apk update && apk --no-cache add protobuf
 WORKDIR /tmp
 # Grpc code setting
 ENV GRPC_PLUGIN_PATH=/protoc-gen-go
