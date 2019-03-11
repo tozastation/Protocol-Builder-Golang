@@ -1,4 +1,4 @@
-# C#におけるprotol buffer自動生成用コンテナ
+# Goにおけるprotol buffer自動生成用コンテナ
 grpc/idlディレクトリ以下に，GRPCのIDFを設置し，コンテナで自動生成するツールを書いてみました．
 ![demo](https://github.com/tozastation/Protocol-Builder-Csharp/blob/master/demo/Protocol-Builder.gif)
 ## 手順
