@@ -11,9 +11,9 @@ steps:
   persistCredentials: true
 - bash: git checkout -b generated
   displayName: 'コード生成用ブランチの作成します'
-- bash: docker pull tozastation/protocol_builder_csharp
+- bash: docker pull tozastation/protocol_builder_golang
   displayName: 'Docker Imageを取得します'
-- bash: docker exec -i $(docker run -v $PWD/grpc:/tmp/grpc -itd tozastation/protocol_builder_csharp:latest) bash -c 'protoc -I $PROTO_PATH --csharp_out=$CSHARP_OUT_PATH --grpc_out=$GRPC_OUT_PATH --plugin=protoc-gen-grpc=$GRPC_PLUGIN_PATH $PROTO_PATH*.proto'
+- bash: docker exec -i $(docker run -v $PWD/grpc:/tmp/grpc -itd tozastation/protocol_builder_golang:latest) ash -c 'protoc -I $PROTO_PATH --plugin=$GRPC_PLUGIN_PATH --go_out=plugins=grpc:$GO_OUT_PATH $PROTO_PATH*.proto'
   displayName: 'Grpcコードを生成します'
 - bash: git config --global user.email "DevOpsのメールアドレス"
   displayName: 'Emailを設定します'
@@ -24,7 +24,5 @@ steps:
 - bash: git status
 - bash: git commit -m "[Add] New Build File"
   displayName: '変更を保存します'
-- bash: git push origin :generated
-  displayName: '取り敢えずブランチを消去します'
-- bash: git push --set-upstream origin generated 
+- bash: git push origin :generated; git push --set-upstream origin generated || echo "Nothing Update"
   displayName: '変更を通知します'
